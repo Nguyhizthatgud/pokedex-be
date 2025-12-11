@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const loadPokemonData = () => {
-    const csvPath = path.join(__dirname, "..", "pokemon.csv");
+    const csvPath = path.join(__dirname, "../../pokemon.csv");
     const csvData = fs.readFileSync(csvPath, "utf-8");
 
     const lines = csvData.trim().split("\n");
