@@ -12,8 +12,12 @@ const PORT = process.env.PORT || 5000;
 
 // middleware
 app.use(cors({
-    // origin: 'https://your-netlify-site.netlify.app',
-    origin: 'https://jinglingbao.netlify.app/',
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:5000',
+        'https://jinglingbao.netlify.app',
+        'https://pokedex-be-7ite.onrender.com'
+    ],
     credentials: true
 }));
 app.use(express.json());
@@ -23,9 +27,12 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 let pokemonData = [];
 try {
     pokemonData = loadPokemonData();
-    console.log(`Loaded ${pokemonData.length} Pokemon`);
+    console.log(`[INFO] Loaded ${pokemonData.length} Pokemon from CSV`);
+    if (pokemonData.length === 0) {
+        console.warn(`[WARNING] No Pokemon data loaded! Check pokemon.csv exists and has data.`);
+    }
 } catch (error) {
-    console.error("Error loading Pokemon data:", error);
+    console.error("[ERROR] Failed to load Pokemon data:", error);
 }
 
 // api routes - get all pokemon with opt filters
@@ -36,6 +43,7 @@ app.get("/pokemons", (req, res) => {
 
         // Filter by type (case-insensitive)
         if (type) {
+            []
             const typeFilter = type.toLowerCase();
             filteredPokemons = filteredPokemons.filter((pokemon) =>
                 pokemon.types.some((t) => t.toLowerCase() === typeFilter)
