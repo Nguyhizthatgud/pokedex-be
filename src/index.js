@@ -128,6 +128,9 @@ app.get("/", (req, res) => {
         },
     });
 });
+app.get('/health', (req, res) => {
+    res.json({ ok: true, count: pokemonData.length });
+});
 
 // Start server
 app.listen(PORT, () => {

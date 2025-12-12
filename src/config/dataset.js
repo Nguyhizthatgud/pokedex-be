@@ -24,7 +24,7 @@ export const loadPokemonData = () => {
             id: pokemonId,
             name: values[0].toLowerCase().trim(),
             types: [values[1].trim()],
-            url: `/images/pokemon/${values[0].toLowerCase().trim()}.png`
+            url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`
         };
 
         // Add Type2 if exists
